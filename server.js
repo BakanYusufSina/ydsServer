@@ -15,6 +15,7 @@ app.use(express.json())
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+require('./config/passport-config')(passport)
 //Router Configurations
 app.use('/', require('./route/index'))
 app.use('/user', require('./route/user'))
