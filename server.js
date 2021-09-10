@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const db = require('./models')
 const passport = require('passport')
+const cookieParser = require('cookie-parser')
 
 require('dotenv').config()
 //Configurations
@@ -12,9 +13,10 @@ app.use(helmet())
 //Passport-Sessions Configuration
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(express.json())
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(cookieParser())
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }))
+app.use(passport.initialize())
+app.use(passport.session())
 require('./config/passport-config')(passport)
 //Router Configurations
 app.use('/', require('./route/index'))
