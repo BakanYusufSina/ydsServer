@@ -4,6 +4,7 @@ const helmet = require('helmet')
 const db = require('./models')
 const passport = require('passport')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 require('dotenv').config()
 //Configurations
@@ -17,6 +18,12 @@ app.use(cookieParser())
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    })
+)
 require('./config/passport-config')(passport)
 //Router Configurations
 app.use('/', require('./route/index'))
