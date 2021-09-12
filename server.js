@@ -20,7 +20,8 @@ app.use(passport.session())
 require('./config/passport-config')(passport)
 //Router Configurations
 app.use('/', require('./route/index'))
-app.use('/user', require('./route/user'))
+app.use('/auth', require('./route/auth'))
+app.use('/user', passport.authenticate('jwt', { session: false }), require('./route/user'))
 
 const PORT = process.env.PORT
 db.sequelize.sync().then(() => {
