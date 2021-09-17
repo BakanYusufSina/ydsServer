@@ -33,14 +33,13 @@ module.exports = (passport) => {
     },
         (jwtPayload, cb) => {
             //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
-            return User.findByPk(jwtPayload.id)
+            return User.findOne({ where: { username: jwtPayload.username } })
                 .then(user => {
-                    console.log('user', user, 'jwt', jwtPayload);
                     return cb(null, user)
                 })
                 .catch(err => {
                     console.log(err)
-                    return cb(err)
+                    return cb(err, user)
                 })
         }
     ))
