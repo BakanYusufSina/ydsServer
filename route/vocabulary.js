@@ -1,7 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const Voc = require('../models/Vocabulary')(require('../models/index').sequelize, require('../models/index').Sequelize)
+const Dictionary = require('../models/Dictionary')(require('../models/index').sequelize, require('../models/index').Sequelize)
 
+//GET ALL DICTIONARY
+router.get('/getDictionary', (req, res) => {
+    Dictionary.find().then(dictionary => res.json(dictionary))
+})
+
+//ADD NEW VOCABULARY FOR USER
 router.get('/addVocabulary', async (req, res) => {
     const { vocabulary, translate } = req.body
     const newVocabulary = await {
@@ -18,14 +25,17 @@ router.get('/addVocabulary', async (req, res) => {
     })
 })
 
+//GET USER'S VOCABULARIES
 router.get('/getVocabularies', (req, res) => {
 
 })
 
+//UPDATE USER'S VOCABULARIES
 router.get('/editVocabulary/:vId', (req, res) => {
 
 })
 
+//DELETE USER'S VOCABULARIES
 router.get('/deleteVocabulary/:vId', (req, res) => {
 
 })
